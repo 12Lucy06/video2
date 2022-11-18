@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0;">
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .wrap {
+      width: 100%;
+    }
+
+    .fly-box {
+      width: 100%;
+      height: 20vh;
+      position: relative;
+    }
+
+    .fly-txt {
+      position: absolute;
+      font-size: 20px;
+      font-weight: bold;
+      top: 2vh;
+      width: 100%;
+      -webkit-animation: move 5s linear infinite;
+    }
+
+    @-webkit-keyframes move {
+      0% {
+        left: 100vw;
+      }
+
+      100% {
+        left: -100vw;
+      }
+    }
+
+    .a1 {
+      position: absolute;
+      top: 30vh;
+      left: 10vw;
+      width: 20vw;
+      height: 20vw;
+      background: url(./A_01.gif) no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .a1.a_03 {
+      background: url(./A_03.gif) no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .a1.a_04 {
+      background: url(./A_04.gif) no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .b1 {
+      position: absolute;
+      top: 30vh;
+      right: 10vw;
+      width: 20vw;
+      height: 20vw;
+      background: url(./B_01.gif) no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .b1.b_03 {
+      background: url(./B_03.gif) no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .b1.b_04 {
+      background: url(./B_04.gif) no-repeat center;
+      background-size: 100% 100%;
+    }
+
+    .name {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      left: 0;
+      bottom: -20px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .bubble {
+      position: absolute;
+      width: 24vw;
+      height: 16vw;
+      bottom: 25vw;
+      border: 1px solid #666;
+      border-radius: 5vw;
+      padding: 5px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .bubble.show {
+      display: block;
+    }
+
+    .bubble.left {
+      left: 0;
+    }
+
+    .bubble::before {
+      content: "";
+      position: absolute;
+      left: 4vw;
+      bottom: -4vw;
+      width: 3vw;
+      height: 3vw;
+      border-top: 5px solid #fff;
+      border-left: 1px solid #666;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+      left: 4.8vw;
+      bottom: -5vw;
+      width: 4vw;
+      height: 3vw;
+      border-top: 1px solid #666;
+      transform: rotate(-45deg);
+    }
+    .bubble.right::before {
+      right: 5vw;
+      left: auto;
+      border-right: 1px solid #666;
+      border-left: none;
+    }
+
+    .bubble.right::after {
+      right: 5.5vw;
+      left: auto;
+      border-top: 1px solid #666;
+      transform: rotate(45deg);
+    }
+
+    .bubble.right {
+      right: 0;
+    }
+  </style>
+  <title>打工人日常</title>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <div class="fly-box">
+      <span class="fly-txt">摸鱼技术哪家强?</span>
+    </div>
+    <div class="a1">
+      <div id="bubble1" class="bubble left">
+        <span id="atxt"></span>
+      </div>
+      <span class="name">露西</span>
+    </div>
+    <div class="b1">
+      <div id="bubble2" class="bubble right">
+        <span id="btxt"></span>
+      </div>
+      <span class="name">玛丽</span>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function Lucy() {}
+    Lucy.prototype = {
+      bubbleEle: document.querySelector("#bubble1"),
+      messageEle: document.querySelector("#atxt"),
+      say: function (message) {
+        this.messageEle.innerHTML = message;
+        this.bubbleEle.classList.add("show")
+      },
+      noSay: function () {
+        this.messageEle.innerHTML = "";
+        this.bubbleEle.classList.remove("show")
+      },
+    }
+    var lucy = new Lucy()
+
+    function Marry() {}
+    Marry.prototype = {
+      bubbleEle: document.querySelector("#bubble2"),
+      messageEle: document.querySelector("#btxt"),
+      say: function (message) {
+        this.messageEle.innerHTML = message;
+        this.bubbleEle.classList.add("show")
+      },
+      noSay: function () {
+        this.messageEle.innerHTML = "";
+        this.bubbleEle.classList.remove("show")
+      },
+    }
+    var marry = new Marry()
+
+    function say(person, message, time) {
+      setTimeout(function () {
+        person.say(message);
+        setTimeout(function () {
+          person.noSay()
+        }, 2000)
+      }, time)
+    }
+
+    var lucyTxt = [{
+        message: "每周总有那么一二三四五天不想上班!",
+        time: 1000
+      },
+
+      {
+        message: "小心被老板发现，到时候炒你鱿鱼!",
+        time: 5000
+      },
+      {
+        message: "摸鱼使我们快乐!",
+        time: 9000
+      },
+      {
+        message: "明天又是周末，哈哈哈哈哈哈哈!",
+        time: 11500
+      },
+    ]
+    var marryTxt = [
+
+      {
+        message: "来啊，一起摸鱼啊!",
+        time: 3000
+      },
+
+      {
+        message: "怕什么，都一个鱼塘里的，你还能举报我?",
+        time: 7000
+      },
+
+      {
+        message: "快下班了，哈哈哈哈哈哈哈!",
+        time: 13500
+      },
+    ]
+    function start() {
+      var aEle = document.querySelector(".a1")
+      var bEle = document.querySelector(".b1")
+      setTimeout(function () {
+        bEle.classList.add("b_03")
+        setTimeout(function () {
+          bEle.classList.remove("b_03")
+        }, 2000)
+      }, 7000)
+      setTimeout(function () {
+        aEle.classList.add("a_03")
+        setTimeout(function () {
+          aEle.classList.remove("a_03")
+        }, 2000)
+      }, 9000)
+      setTimeout(function () {
+        aEle.classList.add("a_04")
+      }, 11500)
+      setTimeout(function () {
+        bEle.classList.add("b_04")
+      }, 13500)
+      lucyTxt.forEach(function (item, index) {
+        say(lucy, item.message, item.time)
+      })
+      marryTxt.forEach(function (item, index) {
+        say(marry, item.message, item.time)
+      })
+    }
+    start()
+  </script>
+</body>
+
+</html>
